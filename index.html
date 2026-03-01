@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hakim Fixit | Device Repair</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+text-align:center;
+}
+
+.container{
+padding:40px 20px;
+max-width:1100px;
+margin:auto;
+animation:fadeIn 1.5s ease;
+}
+
+.logo{
+width:260px;
+margin:auto;
+filter:drop-shadow(0 0 20px #00bfff);
+animation:float 4s ease-in-out infinite;
+}
+
+h1{margin-top:20px;font-weight:700;font-size:32px}
+.tagline{opacity:.8;margin-bottom:30px}
+
+.buttons{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+margin-bottom:40px;
+}
+
+.btn{
+padding:12px 25px;
+border-radius:30px;
+background:#00bfff;
+color:white;
+text-decoration:none;
+transition:.3s;
+box-shadow:0 0 10px #00bfff;
+}
+
+.btn:hover{
+transform:scale(1.08);
+box-shadow:0 0 25px #00bfff;
+}
+
+.services{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin-bottom:50px;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+padding:20px;
+border-radius:15px;
+transition:.4s;
+}
+
+.card:hover{
+background:rgba(0,191,255,0.2);
+transform:translateY(-8px);
+}
+
+.address{
+margin-top:40px;
+font-size:18px;
+}
+
+iframe{
+margin-top:20px;
+border-radius:15px;
+width:100%;
+height:300px;
+border:none;
+}
+
+footer{
+margin-top:40px;
+opacity:.6;
+font-size:14px;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="logo.png" class="logo">
+
+<h1>Hakim Fixit</h1>
+<p class="tagline">Phone • Tablet • Laptop Repair</p>
+
+<div class="buttons">
+<a class="btn" href="https://wa.me/212600759047">WhatsApp</a>
+<a class="btn" href="tel:+212600759047">Call Now</a>
+<a class="btn" href="https://instagram.com/hakim.fixit">Instagram</a>
+<a class="btn" href="https://tiktok.com/@hakim.fixit">TikTok</a>
+<a class="btn" href="https://maps.app.goo.gl/K8Ez1vzLzyvgnDai6">Get Directions</a>
+</div>
+
+<h2>Our Services</h2>
+
+<div class="services">
+<div class="card">🔧 Phone Repair</div>
+<div class="card">💻 Laptop Repair</div>
+<div class="card">📱 Screen Replacement</div>
+<div class="card">🔋 Battery Change</div>
+<div class="card">📡 Router & Fiber Installation</div>
+<div class="card">🎥 Camera Installation</div>
+</div>
+
+<div class="address">
+📍 Street Al Worod No 11<br>
+Al Aroui, Nador<br>
+📞 0600759047
+</div>
+
+<iframe src="https://www.google.com/maps?q=Al%20Aroui%20Nador&output=embed"></iframe>
+
+<footer>
+© 2026 Hakim Fixit - All Rights Reserved
+</footer>
+
+</div>
+
+</body>
+</html>
