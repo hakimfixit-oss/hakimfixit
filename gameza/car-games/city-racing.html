@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Metro Runner Elite</title>
+<title>City Racing 3.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
 body{
-background:radial-gradient(circle at top,#1f2a44,#0d1321);
+background:#0f2027;
 overflow:hidden;
 color:white;
 text-align:center;
@@ -16,119 +17,171 @@ text-align:center;
 canvas{
 display:block;
 margin:0 auto;
-border-radius:20px;
-box-shadow:0 40px 80px rgba(0,0,0,.8);
+border-radius:25px;
+box-shadow:0 40px 100px rgba(0,0,0,.7);
 background:#111;
 }
 .screen{
-position:fixed;width:100%;height:100%;
-display:flex;flex-direction:column;
-justify-content:center;align-items:center;
-background:linear-gradient(#0d1321,#1f2a44);
+position:fixed;
+width:100%;height:100%;
+background:linear-gradient(#0f2027,#203a43);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 z-index:10;
 }
+.gameover{display:none;background:rgba(0,0,0,.9)}
 button{
 margin-top:20px;
 padding:14px 30px;
-border:none;border-radius:30px;
-background:#00c6ff;color:white;
-font-weight:600;cursor:pointer;
+border:none;
+border-radius:30px;
+background:#00c6ff;
+color:white;
+font-weight:600;
+cursor:pointer;
 }
 .hud{
-position:absolute;top:15px;left:15px;
-font-size:14px;text-align:left;
+position:absolute;
+top:15px;
+left:15px;
+text-align:left;
+font-size:14px;
 }
-.bar{
-width:120px;height:8px;background:#333;border-radius:10px;margin-top:5px;
-}
-.bar-fill{
-height:100%;width:100%;background:linear-gradient(90deg,#00ffcc,#00c6ff);
+.speedbar{
+position:absolute;
+top:15px;
+right:15px;
+width:120px;height:10px;
+background:#333;
 border-radius:10px;
+overflow:hidden;
+}
+.speedfill{
+height:100%;
+background:linear-gradient(90deg,#00ff88,#00c6ff);
+width:30%;
 }
 </style>
 </head>
 <body>
 
 <div class="screen" id="intro">
-<h1>🚇 Metro Runner Elite</h1>
-<p>Ultimate Endless Challenge</p>
+<h1>🚗 CITY RACING 3.0</h1>
+<p>Fixed Collision & Pro Feel</p>
 <button onclick="startGame()">Start</button>
 </div>
 
 <canvas id="game" width="420" height="700"></canvas>
 
-<div class="hud">
-<div id="score">Score: 0</div>
-<div class="bar"><div class="bar-fill" id="nitroBar"></div></div>
-</div>
+<div class="hud" id="hud"></div>
+<div class="speedbar"><div class="speedfill" id="speedfill"></div></div>
 
-<div class="screen" id="gameover" style="display:none;background:rgba(0,0,0,.9)">
+<div class="screen gameover" id="gameover">
 <h2 id="finalScore"></h2>
-<button onclick="restart()">Restart</button>
+<h3 id="bestScore"></h3>
+<button onclick="restart()">Play Again</button>
 </div>
 
 <script>
 const canvas=document.getElementById("game");
 const ctx=canvas.getContext("2d");
 
-let lanes=[130,210,290];
+let lanes=[140,210,280];
 let currentLane=1;
 let targetX=lanes[currentLane];
 
-let player={
-x:targetX,
-y:550,
-width:40,
-height:70,
-vy:0,
-gravity:0.8,
-jumpPower:-14,
-ground:550,
-isJumping:false
-};
-
-let obstacles=[];
+let player={x:targetX,y:560,width:50,height:100};
+let enemies=[];
 let coins=[];
 let speed=7;
 let score=0;
+let coinCount=0;
+let combo=1;
 let running=false;
 let offset=0;
-let nitro=100;
 let shake=0;
 
+function drawSky(){
+let grad=ctx.createLinearGradient(0,0,0,300);
+grad.addColorStop(0,"#1e3c72");
+grad.addColorStop(1,"#2a5298");
+ctx.fillStyle=grad;
+ctx.fillRect(0,0,canvas.width,300);
+}
+
 function drawCity(){
-for(let i=0;i<5;i++){
-ctx.fillStyle="#1a2238";
-ctx.fillRect(i*100,(offset*0.2+i*50)%700,80,200);
+for(let i=0;i<8;i++){
+let y=(i*160 + offset*0.4)%1200-200;
+ctx.fillStyle="#0d2d44";
+ctx.fillRect(20,y,40,150);
+ctx.fillRect(360,y+50,40,120);
 }
 }
 
 function drawRoad(){
-ctx.fillStyle="#333";
-ctx.fillRect(90,0,240,700);
+offset+=speed;
+drawSky();
+drawCity();
 
-ctx.strokeStyle="#777";
-ctx.lineWidth=2;
-ctx.setLineDash([30,30]);
+ctx.fillStyle="#444";
 ctx.beginPath();
-ctx.moveTo(210,-offset%60);
+ctx.moveTo(60,0);
+ctx.lineTo(360,0);
+ctx.lineTo(320,700);
+ctx.lineTo(100,700);
+ctx.closePath();
+ctx.fill();
+
+ctx.strokeStyle="white";
+ctx.lineWidth=4;
+ctx.setLineDash([40,30]);
+ctx.beginPath();
+ctx.moveTo(210,-offset%70);
 ctx.lineTo(210,700);
 ctx.stroke();
 ctx.setLineDash([]);
 }
 
-function drawPlayer(){
+function drawCar(x,y,color){
 ctx.save();
-ctx.shadowColor="#00ffcc";
-ctx.shadowBlur=20;
-ctx.fillStyle="#00ffcc";
-ctx.fillRect(player.x-20,player.y-30,40,70);
+
+if(shake>0){
+ctx.translate(Math.random()*shake-shake/2,Math.random()*shake-shake/2);
+shake-=0.5;
+}
+
+ctx.fillStyle="rgba(0,0,0,0.35)";
+ctx.beginPath();
+ctx.ellipse(x,y+55,28,10,0,0,Math.PI*2);
+ctx.fill();
+
+let grad=ctx.createLinearGradient(x-25,y-50,x+25,y+50);
+grad.addColorStop(0,color);
+grad.addColorStop(1,"#222");
+ctx.fillStyle=grad;
+ctx.beginPath();
+ctx.roundRect(x-25,y-50,50,100,20);
+ctx.fill();
+
+ctx.fillStyle="#bde0fe";
+ctx.beginPath();
+ctx.roundRect(x-15,y-30,30,35,8);
+ctx.fill();
+
+ctx.fillStyle="black";
+ctx.fillRect(x-28,y-30,6,22);
+ctx.fillRect(x+22,y-30,6,22);
+ctx.fillRect(x-28,y+35,6,22);
+ctx.fillRect(x+22,y+35,6,22);
+
 ctx.restore();
 }
 
-function spawnObstacle(){
+function spawnEnemy(){
 let lane=Math.floor(Math.random()*3);
-obstacles.push({x:lanes[lane],y:-80});
+enemies.push({x:lanes[lane],y:-120,width:50,height:100});
 }
 
 function spawnCoin(){
@@ -136,52 +189,37 @@ let lane=Math.floor(Math.random()*3);
 coins.push({x:lanes[lane],y:-50,angle:0});
 }
 
+function checkCollision(a,b){
+return (
+a.x - 20 < b.x + 20 &&
+a.x + 20 > b.x - 20 &&
+a.y - 45 < b.y + 45 &&
+a.y + 45 > b.y - 45
+);
+}
+
 function update(){
 if(!running)return;
 
-ctx.clearRect(0,0,420,700);
-
-if(shake>0){
-ctx.translate(Math.random()*5-2.5,Math.random()*5-2.5);
-shake--;
-}
-
-offset+=speed;
-
-drawCity();
+ctx.clearRect(0,0,canvas.width,canvas.height);
 drawRoad();
 
-player.x+=(targetX-player.x)*0.25;
+player.x+=(targetX-player.x)*0.2;
+drawCar(player.x,player.y,"#ff3c38");
 
-if(player.isJumping){
-player.vy+=player.gravity;
-player.y+=player.vy;
-if(player.y>=player.ground){
-player.y=player.ground;
-player.isJumping=false;
-}
-}
+enemies.forEach(enemy=>{
+enemy.y+=speed;
+drawCar(enemy.x,enemy.y,"#ffd60a");
 
-drawPlayer();
-
-obstacles.forEach((obs,i)=>{
-obs.y+=speed;
-ctx.fillStyle="#ff3c38";
-ctx.fillRect(obs.x-20,obs.y,40,40);
-
-if(
-player.x+20>obs.x-20 &&
-player.x-20<obs.x+20 &&
-player.y+30>obs.y &&
-player.y-30<obs.y+40
-){
+if(checkCollision(player,enemy)){
+shake=15;
 endGame();
 }
 });
 
 coins.forEach((coin,i)=>{
 coin.y+=speed;
-coin.angle+=0.2;
+coin.angle+=0.15;
 
 ctx.save();
 ctx.translate(coin.x,coin.y);
@@ -190,26 +228,27 @@ ctx.fillStyle="gold";
 ctx.shadowColor="gold";
 ctx.shadowBlur=15;
 ctx.beginPath();
-ctx.arc(0,0,8,0,Math.PI*2);
+ctx.arc(0,0,10,0,Math.PI*2);
 ctx.fill();
 ctx.restore();
 
-if(
-player.x-20<coin.x+8 &&
-player.x+20>coin.x-8 &&
-player.y-30<coin.y+8 &&
-player.y+30>coin.y-8
-){
-score+=50;
+if(Math.abs(coin.x-player.x)<30 && Math.abs(coin.y-player.y)<40){
+coinCount++;
+combo++;
 coins.splice(i,1);
 }
 });
 
-score+=1;
-if(score%800===0)speed+=0.5;
+score+=combo;
 
-document.getElementById("score").innerText="Score: "+score;
-document.getElementById("nitroBar").style.width=nitro+"%";
+if(score%1000===0)speed+=0.5;
+
+document.getElementById("hud").innerHTML=
+"Score: "+score+
+"<br>Coins: "+coinCount+
+"<br>Combo x"+combo;
+
+document.getElementById("speedfill").style.width=(speed*10)+"%";
 
 requestAnimationFrame(update);
 }
@@ -222,17 +261,28 @@ update();
 
 function endGame(){
 running=false;
-shake=15;
-document.getElementById("finalScore").innerText="Final Score: "+score;
+combo=1;
+
+let best=localStorage.getItem("bestV3")||0;
+if(score>best){
+localStorage.setItem("bestV3",score);
+best=score;
+}
+
+document.getElementById("finalScore").innerText="Score: "+score;
+document.getElementById("bestScore").innerText="Best: "+best;
 document.getElementById("gameover").style.display="flex";
 }
 
 function restart(){
-obstacles=[];coins=[];
-speed=7;score=0;
+enemies=[];
+coins=[];
+speed=7;
+score=0;
+coinCount=0;
+combo=1;
 currentLane=1;
 targetX=lanes[currentLane];
-player.y=player.ground;
 document.getElementById("gameover").style.display="none";
 running=true;
 update();
@@ -245,14 +295,20 @@ currentLane--;targetX=lanes[currentLane];
 if(e.key==="ArrowRight"&&currentLane<2){
 currentLane++;targetX=lanes[currentLane];
 }
-if(e.key==="ArrowUp"&&!player.isJumping){
-player.isJumping=true;
-player.vy=player.jumpPower;
+});
+
+canvas.addEventListener("touchstart",e=>{
+let x=e.touches[0].clientX;
+if(x<window.innerWidth/2&&currentLane>0){
+currentLane--;targetX=lanes[currentLane];
+}
+else if(currentLane<2){
+currentLane++;targetX=lanes[currentLane];
 }
 });
 
-setInterval(spawnObstacle,1000);
-setInterval(spawnCoin,1400);
+setInterval(spawnEnemy,900);
+setInterval(spawnCoin,1300);
 </script>
 
 </body>
