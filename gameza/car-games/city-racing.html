@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>City Racing - Play Free Online | Gameza</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+text-align:center;
+padding:20px;
+}
+
+h1{margin-bottom:10px}
+p{opacity:.8;margin-bottom:20px}
+
+canvas{
+background:#111;
+border-radius:15px;
+display:block;
+margin:20px auto;
+box-shadow:0 15px 40px rgba(0,0,0,.5);
+}
+
+.controls{
+margin-top:10px;
+font-size:14px;
+opacity:.7;
+}
+
+.back{
+display:inline-block;
+margin-top:25px;
+text-decoration:none;
+color:#00bfff;
+font-weight:600;
+}
+
+.ad-box{
+margin:20px auto;
+max-width:800px;
+height:90px;
+background:rgba(255,255,255,0.05);
+border-radius:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:.6;
+font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🚗 City Racing</h1>
+<p>Avoid traffic and survive as long as possible!</p>
+
+<div class="ad-box">
+Advertisement Space (Top Banner)
+</div>
+
+<canvas id="game" width="350" height="600"></canvas>
+
+<div class="controls">
+Use ← → arrow keys to move
+</div>
+
+<div class="ad-box">
+Advertisement Space (Bottom Banner)
+</div>
+
+<a class="back" href="/gameza/car-games/">⬅ Back to Car Games</a>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+let car = { x: 160, y: 500, width: 40, height: 70 };
+let enemies = [];
+let speed = 4;
+let score = 0;
+let gameOver = false;
+
+document.addEventListener("keydown", moveCar);
+
+function moveCar(e){
+if(e.key === "ArrowLeft" && car.x > 0) car.x -= 20;
+if(e.key === "ArrowRight" && car.x < canvas.width - car.width) car.x += 20;
+}
+
+function spawnEnemy(){
+let x = Math.random() * (canvas.width - 40);
+enemies.push({ x: x, y: -70, width: 40, height: 70 });
+}
+
+function update(){
+if(gameOver) return;
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle = "red";
+ctx.fillRect(car.x, car.y, car.width, car.height);
+
+ctx.fillStyle = "yellow";
+for(let i=0;i<enemies.length;i++){
+let enemy = enemies[i];
+enemy.y += speed;
+ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+
+if(
+car.x < enemy.x + enemy.width &&
+car.x + car.width > enemy.x &&
+car.y < enemy.y + enemy.height &&
+car.y + car.height > enemy.y
+){
+gameOver = true;
+alert("Game Over! Score: " + score);
+location.reload();
+}
+}
+
+score++;
+ctx.fillStyle="white";
+ctx.font="16px Poppins";
+ctx.fillText("Score: " + score, 10, 20);
+
+requestAnimationFrame(update);
+}
+
+setInterval(spawnEnemy, 1500);
+update();
+</script>
+
+</body>
+</html>
