@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>City Racing - Play Free Online | Gameza</title>
-
+<title>City Racing - Gameza</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -18,21 +17,19 @@ padding:20px;
 }
 
 h1{margin-bottom:10px}
-p{opacity:.8;margin-bottom:20px}
-
 canvas{
-background:#2b2b2b;
-border-radius:15px;
+background:#333;
+border-radius:20px;
 display:block;
 margin:20px auto;
-box-shadow:0 15px 40px rgba(0,0,0,.5);
+box-shadow:0 20px 50px rgba(0,0,0,.6);
 }
 
 .overlay{
 position:fixed;
 top:0;left:0;
 width:100%;height:100%;
-background:rgba(0,0,0,.8);
+background:rgba(0,0,0,.85);
 display:flex;
 align-items:center;
 justify-content:center;
@@ -52,115 +49,73 @@ color:white;
 font-weight:600;
 cursor:pointer;
 }
-
-.back{
-display:inline-block;
-margin-top:25px;
-text-decoration:none;
-color:#00bfff;
-font-weight:600;
-}
-
-.ad-box{
-margin:20px auto;
-max-width:800px;
-height:90px;
-background:rgba(255,255,255,0.05);
-border-radius:15px;
-display:flex;
-align-items:center;
-justify-content:center;
-opacity:.6;
-font-size:14px;
-}
 </style>
 </head>
 
 <body>
 
 <h1>🚗 City Racing</h1>
-<p>Avoid traffic and survive as long as possible!</p>
 
-<div class="ad-box">Advertisement Space (Top Banner)</div>
+<canvas id="game" width="360" height="600"></canvas>
 
-<canvas id="game" width="350" height="600"></canvas>
-
-<div class="ad-box">Advertisement Space (Bottom Banner)</div>
-
-<a class="back" href="/gameza/car-games/">⬅ Back to Car Games</a>
-
-<div class="overlay" id="gameOverScreen">
-<div id="finalScore"></div>
-<div id="highScore"></div>
-<button onclick="restartGame()">Restart</button>
+<div class="overlay" id="gameOver">
+<div id="scoreText"></div>
+<div id="bestText"></div>
+<button onclick="restart()">Restart</button>
 </div>
 
 <script>
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-let car, enemies, roadLines, speed, score, gameOver;
+const lanes = [60, 160, 260];
+let playerLane = 1;
 
-function init(){
-car = { x: 155, y: 500, width: 40, height: 70 };
-enemies = [];
-roadLines = [];
-speed = 4;
-score = 0;
-gameOver = false;
-
-for(let i=0;i<6;i++){
-roadLines.push({y:i*120});
-}
-
-document.getElementById("gameOverScreen").style.display="none";
-}
+let enemies = [];
+let speed = 4;
+let score = 0;
+let gameOver = false;
 
 function drawRoad(){
 ctx.fillStyle="#444";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
-ctx.fillStyle="white";
-roadLines.forEach(line=>{
-ctx.fillRect(canvas.width/2 - 5, line.y, 10, 60);
-line.y += speed;
-if(line.y > canvas.height) line.y = -60;
-});
+ctx.strokeStyle="white";
+ctx.lineWidth=5;
+ctx.setLineDash([30,20]);
+ctx.beginPath();
+ctx.moveTo(120,0);
+ctx.lineTo(120,600);
+ctx.moveTo(240,0);
+ctx.lineTo(240,600);
+ctx.stroke();
+ctx.setLineDash([]);
 }
 
-function drawCar(){
-ctx.fillStyle="red";
-ctx.fillRect(car.x, car.y, car.width, car.height);
+function drawCar(x,y,color){
+ctx.fillStyle=color;
+ctx.beginPath();
+ctx.roundRect(x-25,y-50,50,90,12);
+ctx.fill();
+
+ctx.fillStyle="#87CEEB";
+ctx.fillRect(x-18,y-35,36,25);
+
+ctx.fillStyle="black";
+ctx.fillRect(x-28,y-35,6,20);
+ctx.fillRect(x+22,y-35,6,20);
+ctx.fillRect(x-28,y+15,6,20);
+ctx.fillRect(x+22,y+15,6,20);
 }
 
 function spawnEnemy(){
-let x = Math.random() * (canvas.width - 40);
-let colors=["yellow","blue","green","orange"];
-let color = colors[Math.floor(Math.random()*colors.length)];
-enemies.push({ x:x, y:-70, width:40, height:70, color:color });
-}
-
-function drawEnemies(){
-enemies.forEach(enemy=>{
-enemy.y += speed;
-ctx.fillStyle=enemy.color;
-ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
-
-if(
-car.x < enemy.x + enemy.width &&
-car.x + car.width > enemy.x &&
-car.y < enemy.y + enemy.height &&
-car.y + car.height > enemy.y
-){
-endGame();
-}
+let lane = Math.floor(Math.random()*3);
+let colors=["yellow","orange","lime","red","blue"];
+enemies.push({
+lane:lane,
+y:-100,
+color:colors[Math.floor(Math.random()*colors.length)]
 });
-}
-
-function drawScore(){
-ctx.fillStyle="white";
-ctx.font="16px Poppins";
-ctx.fillText("Score: "+score, 10, 20);
 }
 
 function update(){
@@ -169,49 +124,63 @@ if(gameOver) return;
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
 drawRoad();
-drawCar();
-drawEnemies();
-drawScore();
+
+drawCar(lanes[playerLane],520,"red");
+
+enemies.forEach((enemy,i)=>{
+enemy.y += speed;
+drawCar(lanes[enemy.lane],enemy.y,enemy.color);
+
+if(enemy.lane===playerLane && enemy.y>450 && enemy.y<550){
+endGame();
+}
+});
 
 score++;
-if(score % 500 === 0) speed += 0.5;
+if(score%400===0) speed+=0.5;
+
+ctx.fillStyle="white";
+ctx.font="16px Poppins";
+ctx.fillText("Score: "+score,10,20);
 
 requestAnimationFrame(update);
 }
 
 function endGame(){
 gameOver=true;
-let best = localStorage.getItem("highscore") || 0;
-if(score > best){
-localStorage.setItem("highscore", score);
-best = score;
+
+let best = localStorage.getItem("best")||0;
+if(score>best){
+localStorage.setItem("best",score);
+best=score;
 }
 
-document.getElementById("finalScore").innerText="Game Over! Score: "+score;
-document.getElementById("highScore").innerText="Best: "+best;
-document.getElementById("gameOverScreen").style.display="flex";
+document.getElementById("scoreText").innerText="Game Over! Score: "+score;
+document.getElementById("bestText").innerText="Best: "+best;
+document.getElementById("gameOver").style.display="flex";
 }
 
-function restartGame(){
-init();
+function restart(){
+enemies=[];
+speed=4;
+score=0;
+gameOver=false;
+document.getElementById("gameOver").style.display="none";
 update();
 }
 
-document.addEventListener("keydown", e=>{
-if(e.key==="ArrowLeft" && car.x>0) car.x-=20;
-if(e.key==="ArrowRight" && car.x<canvas.width-car.width) car.x+=20;
+document.addEventListener("keydown",e=>{
+if(e.key==="ArrowLeft" && playerLane>0) playerLane--;
+if(e.key==="ArrowRight" && playerLane<2) playerLane++;
 });
 
-// Touch controls
-canvas.addEventListener("touchstart", e=>{
-let touchX = e.touches[0].clientX;
-if(touchX < window.innerWidth/2 && car.x>0) car.x-=20;
-else if(car.x<canvas.width-car.width) car.x+=20;
+canvas.addEventListener("touchstart",e=>{
+let x=e.touches[0].clientX;
+if(x<window.innerWidth/2 && playerLane>0) playerLane--;
+else if(playerLane<2) playerLane++;
 });
 
-setInterval(spawnEnemy, 1500);
-
-init();
+setInterval(spawnEnemy,1500);
 update();
 </script>
 
