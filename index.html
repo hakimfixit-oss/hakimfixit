@@ -10,6 +10,7 @@
 <meta name="robots" content="index, follow">
 <meta name="author" content="Hakim Fixit">
 <meta name="theme-color" content="#203a43">
+
 <link rel="canonical" href="https://hakimfixit.com/">
 <meta name="google-site-verification" content="ZjLC6SBL_dWh8K64Q5AR789pHeminpnapeW6pBZPsm4">
 
@@ -29,6 +30,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<!-- Structured Data Improved -->
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -44,7 +46,18 @@
    "addressLocality": "Al Aaroui",
    "addressRegion": "Nador",
    "addressCountry": "MA"
- }
+ },
+ "geo": {
+   "@type": "GeoCoordinates",
+   "latitude": 35.0139625,
+   "longitude": -3.0034522
+ },
+ "openingHoursSpecification": [{
+   "@type": "OpeningHoursSpecification",
+   "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+   "opens": "11:00",
+   "closes": "23:30"
+ }]
 }
 </script>
 
@@ -58,65 +71,63 @@ text-align:center;
 }
 
 .container{
-max-width:900px;
+max-width:650px;
 margin:auto;
 padding:60px 20px;
 }
 
-/* ===== LOGO UPGRADE ===== */
+/* ===== LOGO SHARP IMPROVEMENT ===== */
 
 .logo{
 width:260px;
 margin:auto;
 display:block;
-filter:contrast(1.1) drop-shadow(0 18px 45px rgba(0,0,0,.55));
-animation:logoFloat 7s ease-in-out infinite;
-transition:transform .4s ease;
+filter:contrast(1.08) brightness(1.05) drop-shadow(0 18px 45px rgba(0,0,0,.55));
+animation:logoFloat 6s ease-in-out infinite;
+transition:transform .4s ease, filter .4s ease;
 }
 
 .logo:hover{
-transform:scale(1.06);
+transform:scale(1.05);
+filter:contrast(1.1) brightness(1.07) drop-shadow(0 22px 55px rgba(0,0,0,.65));
 }
 
 @keyframes logoFloat{
-0%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
-100%{transform:translateY(0);}
+0%{transform:translateY(0px);}
+50%{transform:translateY(-8px);}
+100%{transform:translateY(0px);}
 }
 
-h1{margin-top:30px;font-size:38px}
-.tagline{opacity:.9;margin-bottom:50px;font-size:18px}
-
-/* ===== BUTTONS (ALL SAME WIDTH) ===== */
+h1{margin-top:30px;font-size:36px}
+.tagline{opacity:.9;margin-bottom:45px;font-size:18px}
 
 .buttons{
 display:flex;
-flex-direction:column;
-align-items:center;
-gap:18px;
-margin-bottom:60px;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+margin-bottom:55px;
 }
 
 .btn{
-width:320px;
-max-width:90%;
+width:260px;
 height:60px;
-border-radius:50px;
+border-radius:40px;
 display:flex;
 align-items:center;
 justify-content:center;
-gap:12px;
+gap:10px;
 font-size:18px;
 font-weight:600;
 text-decoration:none;
 transition:.3s;
 color:white;
-box-shadow:0 10px 30px rgba(0,0,0,.35);
+box-shadow:0 8px 25px rgba(0,0,0,.25);
 }
 
 .btn:hover{
-transform:translateY(-5px);
-box-shadow:0 18px 45px rgba(0,0,0,.5);
+transform:translateY(-4px);
+box-shadow:0 15px 35px rgba(0,0,0,.35);
 }
 
 .whatsapp{background:#25D366}
@@ -126,28 +137,26 @@ box-shadow:0 18px 45px rgba(0,0,0,.5);
 .directions{background:#6aa6d9}
 .review{background:#f4c430;color:black;font-weight:700}
 
-/* ===== SERVICES ===== */
-
 h2{font-size:28px;margin-bottom:30px}
 
 .services{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-margin-bottom:60px;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+margin-bottom:50px;
 }
 
 .card{
 background:rgba(255,255,255,0.08);
-padding:40px 20px;
+padding:35px 20px;
 border-radius:25px;
-min-height:170px;
+min-height:160px;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 transition:.3s;
-backdrop-filter:blur(6px);
+backdrop-filter:blur(4px);
 }
 
 .card:hover{
@@ -161,10 +170,8 @@ margin-bottom:15px;
 color:#00bfff;
 }
 
-/* ===== ADDRESS ===== */
-
 .address{
-margin-top:35px;
+margin-top:30px;
 font-size:18px;
 line-height:1.6;
 }
@@ -180,19 +187,16 @@ iframe{
 margin-top:25px;
 border-radius:20px;
 width:100%;
-height:320px;
+height:300px;
 border:none;
-box-shadow:0 15px 40px rgba(0,0,0,.45);
+box-shadow:0 12px 30px rgba(0,0,0,.35);
 }
-
-/* ===== BRAND TEXT ===== */
 
 section{
 margin:50px auto;
-max-width:650px;
-font-size:17px;
+max-width:600px;
 opacity:.95;
-line-height:1.6;
+font-size:16px;
 }
 
 footer{
@@ -234,15 +238,16 @@ font-size:14px;
 <div class="address">
 📍 11 Rue Al Worod<br>
 Al Aaroui, Nador, Morocco<br>
-📞 <span class="phone"><a href="tel:+212600759047">0600759047</a></span>
+<p class="phone">📞 <a href="tel:+212600759047">0600759047</a></p>
 </div>
 
 <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1633.8550282667948!2d-3.0034522!3d35.0139625!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd77afff0beb7c27%3A0x28671bb61824b489!2sHakim%20Fixit!5e0!3m2!1sfr!2sma!4v1772357826305!5m2!1sfr!2sma"
 loading="lazy" allowfullscreen></iframe>
 
 <section>
-Hakim Fixit – Trusted Phone, Tablet & Laptop Repair in Al Aaroui.
-Fast service. Fair prices. Professional results.
+Hakim Fixit is a professional repair shop in Al Aaroui, Nador, Morocco,
+specialized in phone, tablet and laptop repair, fiber installation
+and security camera systems.
 </section>
 
 <footer>
