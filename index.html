@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hakim Fixit | Phone & Laptop Repair in Al Aaroui</title>
+<title>Hakim Fixit | Phone Repair & Laptop Repair in Al Aaroui</title>
 
-<meta name="description" content="Hakim Fixit is a professional phone repair and laptop repair shop in Al Aaroui, Nador, Morocco. Screen replacement, battery change, router installation and security cameras.">
+<meta name="description" content="Hakim Fixit is a professional phone repair, laptop repair and cell phone store in Al Aaroui, Nador, Morocco. Screen replacement, battery change, router installation and security cameras.">
 
 <meta name="robots" content="index, follow">
 
@@ -40,14 +41,23 @@ margin:auto;
 padding:50px 20px;
 }
 
+/* LOGO */
+
 .logo{
 width:220px;
 margin:auto;
 display:block;
 margin-bottom:10px;
+animation:floatLogo 6s ease-in-out infinite;
 }
 
-/* divider */
+@keyframes floatLogo{
+0%{transform:translateY(0)}
+50%{transform:translateY(-8px)}
+100%{transform:translateY(0)}
+}
+
+/* DIVIDER */
 
 .divider{
 display:flex;
@@ -72,6 +82,8 @@ border-radius:50%;
 margin:0 12px;
 }
 
+/* TEXT */
+
 h1{
 font-size:36px;
 margin-bottom:10px;
@@ -81,6 +93,8 @@ margin-bottom:10px;
 opacity:.9;
 margin-bottom:35px;
 }
+
+/* BUTTONS */
 
 .buttons{
 display:flex;
@@ -107,9 +121,29 @@ transition:.2s;
 transform:scale(.96);
 }
 
-.whatsapp{background:#25D366}
-.call{background:#4dabf7}
-.review{background:#f4c430;color:black}
+/* BUTTON COLORS */
+
+.whatsapp{
+background:#25D366;
+animation:pulse 2.5s infinite;
+}
+
+.call{
+background:#4dabf7;
+}
+
+.review{
+background:#f4c430;
+color:black;
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 0 0 rgba(37,211,102,.6)}
+70%{box-shadow:0 0 0 15px rgba(37,211,102,0)}
+100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}
+}
+
+/* SOCIAL */
 
 .social-grid{
 display:grid;
@@ -128,11 +162,14 @@ justify-content:center;
 font-size:26px;
 color:white;
 text-decoration:none;
+transition:.2s;
 }
 
 .social:active{
-transform:scale(.92);
+transform:scale(.9);
 }
+
+/* SERVICES */
 
 .services{
 display:grid;
@@ -145,6 +182,12 @@ margin-top:40px;
 background:rgba(255,255,255,0.08);
 padding:30px 20px;
 border-radius:20px;
+transition:.3s;
+}
+
+.service:hover{
+transform:translateY(-6px);
+background:rgba(255,255,255,0.15);
 }
 
 .service i{
@@ -152,6 +195,8 @@ font-size:28px;
 color:#00bfff;
 margin-bottom:10px;
 }
+
+/* ADDRESS */
 
 .address{
 margin-top:40px;
@@ -165,6 +210,8 @@ text-decoration:none;
 font-weight:600;
 }
 
+/* MAP */
+
 iframe{
 margin-top:25px;
 border-radius:20px;
@@ -173,11 +220,14 @@ height:300px;
 border:none;
 }
 
+/* TEXT */
+
 section{
 margin:50px auto;
 max-width:600px;
 opacity:.95;
 font-size:16px;
+line-height:1.6;
 }
 
 footer{
@@ -203,7 +253,7 @@ font-size:14px;
 <h1>Hakim Fixit</h1>
 
 <p class="tagline">
-Smartphone • Cell Phone & Electronics Store • Laptop Repair
+Smartphone • Cell Phone Store • Laptop Repair
 </p>
 
 <div class="buttons">
@@ -295,8 +345,8 @@ allowfullscreen></iframe>
 
 <section>
 
-Hakim Fixit is a professional phone repair and laptop repair shop in Al Aaroui, Nador, Morocco.
-If you are looking for phone repair in Al Aaroui or laptop repair in Al Aaroui, Hakim Fixit offers fast and reliable service.
+Hakim Fixit is a professional phone repair and laptop repair shop in Al Aaroui, Nador, Morocco.  
+If you are searching for phone repair in Al Aaroui, laptop repair in Al Aaroui or a cell phone store near you, Hakim Fixit offers fast and reliable service.
 
 </section>
 
