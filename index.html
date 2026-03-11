@@ -1,74 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hakim Fixit | Phone & Laptop Repair in Al Aaroui, Nador</title>
+<title>Hakim Fixit | Phone & Laptop Repair in Al Aaroui</title>
 
-<meta name="description" content="Hakim Fixit is a professional phone and laptop repair shop in Al Aaroui, Nador, Morocco. Screen replacement, battery change, router & fiber installation and security camera installation.">
+<meta name="description" content="Hakim Fixit is a professional phone repair and laptop repair shop in Al Aaroui, Nador, Morocco. Screen replacement, battery change, router installation and security cameras.">
+
 <meta name="robots" content="index, follow">
-<meta name="author" content="Hakim Fixit">
-<meta name="theme-color" content="#203a43">
 
 <link rel="canonical" href="https://hakimfixit.com/">
 
-<meta property="og:title" content="Hakim Fixit - Phone & Laptop Repair in Al Aaroui">
-<meta property="og:description" content="Professional phone and laptop repair services in Al Aaroui, Nador.">
-<meta property="og:image" content="https://hakimfixit.com/logo.png">
-<meta property="og:url" content="https://hakimfixit.com/">
-<meta property="og:type" content="website">
-
-<link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+<link rel="icon" type="image/png" href="logo.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<!-- SEO Local Business -->
-<script type="application/ld+json">
-{
- "@context": "https://schema.org",
- "@type": ["ComputerRepair","ElectronicsStore"],
-
- "name": "Hakim Fixit",
- "image": "https://hakimfixit.com/logo.png",
- "url": "https://hakimfixit.com/",
- "telephone": "+212600759047",
-
- "address": {
-   "@type": "PostalAddress",
-   "streetAddress": "11 Rue Al Worod",
-   "addressLocality": "Al Aaroui",
-   "addressRegion": "Nador",
-   "addressCountry": "Morocco"
- },
-
- "geo": {
-   "@type": "GeoCoordinates",
-   "latitude": 35.0139625,
-   "longitude": -3.0034522
- },
-
- "openingHoursSpecification": [{
-   "@type": "OpeningHoursSpecification",
-   "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-   "opens": "11:00",
-   "closes": "23:30"
- }],
-
- "makesOffer": [
-  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Phone Repair" }},
-  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Laptop Repair" }},
-  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Screen Replacement" }},
-  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Battery Replacement" }}
- ]
-}
-</script>
-
 <style>
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
 
 body{
 background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
@@ -77,43 +35,37 @@ text-align:center;
 }
 
 .container{
-max-width:650px;
+max-width:600px;
 margin:auto;
-padding:60px 20px;
+padding:40px 20px;
 }
 
 .logo{
-width:260px;
+width:200px;
 margin:auto;
 display:block;
-filter:contrast(1.08) brightness(1.05) drop-shadow(0 18px 45px rgba(0,0,0,.55));
-animation:logoFloat 6s ease-in-out infinite;
+margin-bottom:20px;
 }
 
-@keyframes logoFloat{
-0%{transform:translateY(0px);}
-50%{transform:translateY(-8px);}
-100%{transform:translateY(0px);}
+h1{
+font-size:34px;
+margin-bottom:10px;
 }
-
-h1{margin-top:30px;font-size:36px}
 
 .tagline{
 opacity:.9;
-margin-bottom:45px;
-font-size:18px;
+margin-bottom:30px;
+font-size:17px;
 }
 
-.buttons{
+.main-buttons{
 display:flex;
-flex-wrap:wrap;
-justify-content:center;
+flex-direction:column;
 gap:15px;
-margin-bottom:55px;
+margin-bottom:35px;
 }
 
-.btn{
-width:260px;
+.big-btn{
 height:60px;
 border-radius:40px;
 display:flex;
@@ -123,54 +75,74 @@ gap:10px;
 font-size:18px;
 font-weight:600;
 text-decoration:none;
-transition:.3s;
 color:white;
-box-shadow:0 8px 25px rgba(0,0,0,.25);
 }
 
-.btn:hover{
-transform:translateY(-4px);
-box-shadow:0 15px 35px rgba(0,0,0,.35);
+.whatsapp{
+background:#25D366;
 }
 
-.whatsapp{background:#25D366}
-.call{background:#4dabf7}
-.instagram{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7)}
-.tiktok{background:#000}
-.directions{background:#6aa6d9}
-.review{background:#f4c430;color:black;font-weight:700}
+.call{
+background:#4dabf7;
+}
 
-h2{font-size:28px;margin-bottom:30px}
+.review{
+background:#f4c430;
+color:black;
+}
+
+.social-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin:35px 0;
+}
+
+.social{
+background:rgba(255,255,255,0.1);
+border-radius:20px;
+height:70px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+color:white;
+text-decoration:none;
+transition:.3s;
+}
+
+.social:hover{
+background:#00bfff;
+}
 
 .services{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:20px;
-margin-bottom:50px;
+gap:15px;
+margin-top:40px;
 }
 
-.card{
+.service{
 background:rgba(255,255,255,0.08);
-padding:35px 20px;
-border-radius:25px;
-min-height:160px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-transition:.3s;
-backdrop-filter:blur(4px);
+border-radius:20px;
+padding:25px;
 }
 
-.card:hover{
-background:rgba(0,191,255,0.25);
-transform:translateY(-6px);
-}
-
-.service-icon{
-font-size:30px;
-margin-bottom:15px;
+.service i{
+font-size:28px;
 color:#00bfff;
+margin-bottom:10px;
+}
+
+.map{
+margin-top:40px;
+}
+
+iframe{
+width:100%;
+height:280px;
+border:none;
+border-radius:20px;
 }
 
 .address{
@@ -183,71 +155,62 @@ line-height:1.6;
 color:white;
 text-decoration:none;
 font-weight:600;
-font-size:20px;
-}
-
-iframe{
-margin-top:25px;
-border-radius:20px;
-width:100%;
-height:300px;
-border:none;
-box-shadow:0 12px 30px rgba(0,0,0,.35);
-}
-
-section{
-margin:50px auto;
-max-width:600px;
-opacity:.95;
-font-size:16px;
 }
 
 footer{
-margin-top:45px;
+margin-top:30px;
 opacity:.6;
 font-size:14px;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<img src="logo.png" class="logo" alt="Hakim Fixit Logo">
+<img src="logo.png" class="logo" alt="Hakim Fixit">
 
 <h1>Hakim Fixit</h1>
 
 <p class="tagline">
-Phone • Tablet • Laptop Repair<br>
-Cell Phone & Electronics Store
+Smartphone • Cell Phone & Electronics Store • Laptop Repair
 </p>
 
-<div class="buttons">
+<div class="main-buttons">
 
-<a class="btn whatsapp" href="https://wa.me/212600759047" target="_blank">
+<a class="big-btn whatsapp" href="https://wa.me/212600759047" target="_blank">
 <i class="fab fa-whatsapp"></i> WhatsApp
 </a>
 
-<a class="btn call" href="tel:+212600759047">
+<a class="big-btn call" href="tel:+212600759047">
 <i class="fa-solid fa-phone"></i> Call Now
 </a>
 
-<a class="btn instagram" href="https://instagram.com/hakim.fixit" target="_blank">
-<i class="fab fa-instagram"></i> Instagram
-</a>
-
-<a class="btn tiktok" href="https://tiktok.com/@hakim.fixit" target="_blank">
-<i class="fab fa-tiktok"></i> TikTok
-</a>
-
-<a class="btn directions" href="https://maps.app.goo.gl/Fzrs5WLXMTEexBP16" target="_blank">
-<i class="fa-solid fa-location-dot"></i> Get Directions
-</a>
-
-<a class="btn review" href="https://g.page/r/CYm0JBi2G2coEBM/review" target="_blank">
+<a class="big-btn review" href="https://g.page/r/CYm0JBi2G2coEBM/review" target="_blank">
 <i class="fa-solid fa-star"></i> Leave a Review
+</a>
+
+</div>
+
+<div class="social-grid">
+
+<a class="social" href="https://instagram.com/hakim.fixit" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a class="social" href="https://tiktok.com/@hakim.fixit" target="_blank">
+<i class="fab fa-tiktok"></i>
+</a>
+
+<a class="social" href="https://maps.app.goo.gl/Fzrs5WLXMTEexBP16" target="_blank">
+<i class="fa-solid fa-location-dot"></i>
+</a>
+
+<a class="social" href="mailto:contact@hakimfixit.com">
+<i class="fa-solid fa-envelope"></i>
 </a>
 
 </div>
@@ -256,33 +219,33 @@ Cell Phone & Electronics Store
 
 <div class="services">
 
-<div class="card">
-<i class="fa-solid fa-mobile-screen-button service-icon"></i>
+<div class="service">
+<i class="fa-solid fa-mobile-screen-button"></i>
 Phone Repair
 </div>
 
-<div class="card">
-<i class="fa-solid fa-laptop service-icon"></i>
+<div class="service">
+<i class="fa-solid fa-laptop"></i>
 Laptop Repair
 </div>
 
-<div class="card">
-<i class="fa-solid fa-tablet-screen-button service-icon"></i>
+<div class="service">
+<i class="fa-solid fa-tablet-screen-button"></i>
 Screen Replacement
 </div>
 
-<div class="card">
-<i class="fa-solid fa-battery-full service-icon"></i>
+<div class="service">
+<i class="fa-solid fa-battery-full"></i>
 Battery Change
 </div>
 
-<div class="card">
-<i class="fa-solid fa-wifi service-icon"></i>
+<div class="service">
+<i class="fa-solid fa-wifi"></i>
 Router & Fiber Installation
 </div>
 
-<div class="card">
-<i class="fa-solid fa-video service-icon"></i>
+<div class="service">
+<i class="fa-solid fa-video"></i>
 Security Camera Installation
 </div>
 
@@ -299,20 +262,16 @@ Al Aaroui, Nador, Morocco
 
 </div>
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1633.8550282667948!2d-3.0034522!3d35.0139625!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd77afff0beb7c27%3A0x28671bb61824b489!2sHakim%20Fixit!5e0!3m2!1sfr!2sma!4v1772357826305!5m2!1sfr!2sma"
-loading="lazy"
-allowfullscreen></iframe>
+<div class="map">
 
-<section>
+<iframe src="https://www.google.com/maps?q=Hakim%20Fixit%20Al%20Aaroui&output=embed"></iframe>
 
-Hakim Fixit is a professional phone repair and laptop repair shop in Al Aaroui, Nador, Morocco.
-We repair iPhone, Samsung and Xiaomi devices and provide screen replacement, battery replacement,
-router installation and security camera installation.
-
-</section>
+</div>
 
 <footer>
+
 © 2026 Hakim Fixit – All Rights Reserved
+
 </footer>
 
 </div>
